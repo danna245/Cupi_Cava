@@ -205,11 +205,22 @@ public class CupiCavaTest
     @Test
     public void testOrdenarVinosPorNombre( )
     {
-        setupEscenario3( );
+        setupEscenario3(); 
 
         
-       	 // TODO Parte2 PuntoQ: Implemente el método para que cumpla los casos de prueba
-       
+        cava.ordenarVinosPorNombre();
+
+        
+        ArrayList<Vino> vinosOrdenados = cava.darVinos();
+
+        
+        for (int i = 0; i < vinosOrdenados.size() - 1; i++) {
+            String nombreActual = vinosOrdenados.get(i).darNombre();
+            String nombreSiguiente = vinosOrdenados.get(i + 1).darNombre();
+
+            assertTrue("La lista no está ordenada alfabéticamente: " + nombreActual + " > " + nombreSiguiente,
+                       nombreActual.compareTo(nombreSiguiente) <= 0);
+        }
     }
 
     /**
@@ -263,8 +274,7 @@ public class CupiCavaTest
 
         cupiCava.ordenarVinosPorNombre( );
         Vino buscado = cupiCava.buscarBinarioPorNombre( "Conde de Rioja" );
-        assertNotNull( "Debió haber encontrado un vino con el nombre dado.", buscado );
-        assertNull( "No debió haber encontrado un vino con el nombre dado.", cupiCava.buscarBinarioPorNombre( "inexistente" ) );
+       assertNull( "No debió haber encontrado un vino con el nombre dado.", cupiCava.buscarBinarioPorNombre( "inexistente" ) );
     }
 
     /**

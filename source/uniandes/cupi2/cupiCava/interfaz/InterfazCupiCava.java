@@ -67,7 +67,6 @@ public class InterfazCupiCava extends JFrame
      * Panel con la lista de vinos de la cava.
      */
     private PanelListaVinos panelListaVinos;
-
     /**
      * Panel con la información detallada de un vino.
      */

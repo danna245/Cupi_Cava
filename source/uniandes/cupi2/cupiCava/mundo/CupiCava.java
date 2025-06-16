@@ -15,8 +15,11 @@ import java.util.ArrayList;
 /**
  * Clase que representa la Cupi-Cava. <br>
  * <b>inv: </b> <br>
- * TODO Parte1 PuntoC: Declare la invariante de la clase.
  */
+/**
+ * <b>inv:</b> La lista de vinos siempre está inicializada (vinos != null).
+ */
+
 public class CupiCava
 {
     // -------------------------------------------------------------
@@ -44,6 +47,12 @@ public class CupiCava
     // -------------------------------------------------------------
     // Métodos
     // -------------------------------------------------------------
+    /**
+     * Verifica la invariante de la clase.
+     */
+    private void verificarInvariante() {
+        assert vinos != null : "La lista de vinos no debe ser null.";
+    }
 
     /**
      * Retorna la lista de vinos.
@@ -86,7 +95,29 @@ public class CupiCava
      */
     public Vino buscarBinarioPorNombre( String pNombre )
     {
-   	 // TODO Parte2 PuntoH: Implemente el método según la documentación dada.
+    	int inicio = 0;
+        int fin = vinos.size() - 1;
+
+        while (inicio <= fin)
+        {
+            int medio = (inicio + fin) / 2;
+            Vino actual = vinos.get(medio);
+            int comparacion = actual.darNombre().compareToIgnoreCase(pNombre);
+
+            if (comparacion == 0)
+            {
+                return actual;
+            }
+            else if (comparacion < 0)
+            {
+                inicio = medio + 1;
+            }
+            else
+            {
+                fin = medio - 1;
+            }
+        }
+        return null;
     }
 
     /**
@@ -97,7 +128,17 @@ public class CupiCava
      */
     public Vino buscarVinoMasDulce( )
     {
-   	 // TODO Parte2 PuntoI: Implemente el método según la documentación dada.
+    	if (vinos.isEmpty()) return null;
+
+        Vino masDulce = vinos.get(0);
+        for (Vino v : vinos)
+        {
+            if (v.darContenidoAzucar() > masDulce.darContenidoAzucar())
+            {
+                masDulce = v;
+            }
+        }
+        return masDulce;
     }
 
     /**
@@ -108,7 +149,17 @@ public class CupiCava
      */
     public Vino buscarVinoMasSeco( )
     {
-   	 // TODO Parte2 PuntoJ: Implemente el método según la documentación dada.
+    	if (vinos.isEmpty()) return null;
+
+        Vino masSeco = vinos.get(0);
+        for (Vino v : vinos)
+        {
+            if (v.darContenidoAzucar() < masSeco.darContenidoAzucar())
+            {
+                masSeco = v;
+            }
+        }
+        return masSeco;
    }
 
     /**
@@ -120,7 +171,15 @@ public class CupiCava
      */
     public ArrayList<Vino> buscarVinosDeTipo( String pTipo )
     {
-   	 // TODO Parte2 PuntoK: Implemente el método según la documentación dada.
+    	ArrayList<Vino> resultado = new ArrayList<>();
+        for (Vino v : vinos)
+        {
+            if (v.darTipo().equalsIgnoreCase(pTipo))
+            {
+                resultado.add(v);
+            }
+        }
+        return resultado;
    }
 
     /**
